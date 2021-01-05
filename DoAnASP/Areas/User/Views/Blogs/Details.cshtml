@@ -1,0 +1,93 @@
+﻿@model DoAnASP.Areas.Admin.Models.Blog
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrap">
+    <div class="main">
+        <div class="content">
+            <dl class="row">
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TieuDe)
+                </dd>
+                <dd class="col-sm-10">
+                    <img src="~/blog/@Html.DisplayFor(model => model.HinhAnh)" />
+                </dd>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TomTat)
+                </dd>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NoiDung)
+                </dd>
+            </dl>
+        </div>
+        <div class="page_links">
+            <div class="sidebar">
+                <div class="sidebar_top">
+                    <h3>Blog Categories</h3>
+                    <div class="sidebar_top_list">
+                        @foreach (var item in ViewBag.Loai)
+                        {
+                            <ul>
+                                <li><a href="#"><span class="category-name">@item.TieuDe</span> <div class="clear"></div></a></li>
+
+                            </ul>
+                        }
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="page_bottom">
+                <p>Back To : <a href="#">Top</a> |  <a href="#">Home</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box comment">
+    <ul class="list">
+        @foreach (var item in ViewBag.BinhLuan)
+        {
+            @if (Model.IDBlog == item.IDBV && item.TrangThai == 1)
+            {
+
+                <li>
+                    <div class="data">
+                        <div class="title"> <a href="#"> @item.NgayTao</a></div>
+                        <p>@item.NoiDung</p>
+                        @if (item.IDTK.ToString() == ViewBag.IDName)
+                        {
+
+
+                            <form asp-action="Duyet" asp-controller="BinhLuans" method="post">
+                                <input type="hidden" name="id" value="@item.IDBL" />
+                                <input type="submit" value="Delete"  />
+                            </form>
+                           
+
+                        }
+                    </div>
+                    <div class="clear"></div>
+                </li>
+            }
+        }
+    </ul>
+</div>
+<form asp-action="Create" asp-controller="BinhLuans">
+    <div class="box comment">
+        <p>
+            <input type="text" name="NoiDung" value="">
+            <input type="hidden" name="IDBV" value="@Model.IDBlog" />
+            <input type="hidden" name="IDTK" value="@ViewBag.IDName" />
+            <input type="submit" value="Post">
+        </p>
+    </div>
+</form>
+<div id="fb-root"></div>
+
+
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=2798027560410846&autoLogAppEvents=1" nonce="Y0hAkwzZ"></script>
+<div class="fb-comments" data-href="https://localhost:44305/User/Blogs/Details/Model.IDBV" data-width="20" data-numposts="5"></div>

@@ -1,0 +1,67 @@
+﻿@model DoAnASP.Areas.Admin.Models.CauHoi
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrap">
+
+    <div class="main">
+
+        <div class="content">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IDBlog" />
+                <div class="form-group">
+                    <label asp-for="TieuDe" class="control-label"></label>
+                    <input asp-for="TieuDe" class="form-control" />
+                    <span asp-validation-for="TieuDe" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HinhAnh" class="control-label"></label>
+                    <input asp-for="HinhAnh" class="form-control" />
+                    <span asp-validation-for="HinhAnh" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TomTat" class="control-label"></label>
+                    <input asp-for="TomTat" class="form-control" />
+                    <span asp-validation-for="TomTat" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NoiDung" class="control-label"></label>
+                    <input asp-for="NoiDung" class="form-control" />
+                    <span asp-validation-for="NoiDung" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IDLoai" class="control-label"></label>
+                    <select asp-for="IDLoai" class="form-control" asp-items="ViewBag.IDLoai"></select>
+                    <span asp-validation-for="IDLoai" class="text-danger"></span>
+                </div>
+
+
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+        <div class="page_links">
+
+
+
+            <div class="clear"></div>
+            <div class="page_bottom">
+                <p>Back To : <a href="#">Top</a> |  <a href="#">Home</a></p>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

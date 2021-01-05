@@ -1,0 +1,28 @@
+﻿@model IEnumerable<DoAnASP.Areas.Admin.Models.Loai>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+<div class="wrap">
+    <div class="main">
+        <div class="content">
+            <div class="box1">
+                @foreach (var item in Model)
+                {
+                    <div class="box1">
+                        <div>
+                            <h2>@item.TieuDe</h2>
+                            @foreach (var item1 in ViewBag.cauhoi)
+                            {
+                                @if (item.IDLoai == item1.IDLoai)
+                                    @item1.NoiDung
+                                <span><a asp-action="Details" asp-route-id="@item1.IDBlog"></a></span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+           </div>
+    </div>
+</div>  
+

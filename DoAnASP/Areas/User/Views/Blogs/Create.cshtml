@@ -1,0 +1,53 @@
+﻿@model DoAnASP.Areas.Admin.Models.Blog
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrap">
+    <div class="main">
+        <div class="content">
+            <form enctype="multipart/form-data" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="TieuDe" class="control-label"></label><br />
+                    <input asp-for="TieuDe" class="form-control" />
+                    <span asp-validation-for="TieuDe" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HinhAnh" class="control-label"></label><br />
+                    <input type="file" name="ful" asp-for="HinhAnh" class="form-control" />
+                    <span asp-validation-for="HinhAnh" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TomTat" class="control-label"></label><br />
+                    <input asp-for="TomTat" class="form-control" />
+                    <span asp-validation-for="TomTat" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NoiDung" class="control-label"></label><br />
+                    <input asp-for="NoiDung" class="form-control" />
+                    <span asp-validation-for="NoiDung" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IDLoai" class="control-label"></label><br />
+                    <select asp-for="IDLoai" class="form-control" asp-items="ViewBag.IDLoai"></select>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="IDNguoiTao" value="@ViewBag.IDName" class="form-control" />
+                    <span asp-validation-for="IDNguoiTao" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+        <div class="page_links">
+            <div class="clear"></div>
+            <div class="page_bottom">
+                <p>Back To : <a href="#">Top</a> |  <a href="#">Home</a></p>
+            </div>
+        </div>
+    </div>
+</div>

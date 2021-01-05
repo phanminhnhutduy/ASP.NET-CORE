@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DoAnASP.Areas.Admin.Models.CauHoi>
+@{
+    ViewData["Title"] = "timkim";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="wrap">
+        <div class="main">
+            <div class="content">
+                <form asp-controller="CauHois" asp-action="timkim" method="get">
+                    @foreach (var item in Model)
+                    {
+                        <div class="box1">
+                            <div>
+                                <h2>@item.TieuDe</h2>
+                                <a asp-action="Details" asp-route-id="@item.IDBlog"><img src="~/blog/@item.HinhAnh" width="100" hight="100px"></a>
+                                <h5>
+                                    @item.TomTat
+                                </h5>
+                            </div>
+                            <div class="data">
+                                <span><a asp-action="Details" asp-route-id="@item.IDBlog">Continue reading &gt;&gt;&gt; </a></span>
+                                <span style="float:right">View: @item.View</span>
+                            </div>
+                        </div>
+                    }
+                    
+                </form>
+
+            </div>     
+        </div>
+    </div>
