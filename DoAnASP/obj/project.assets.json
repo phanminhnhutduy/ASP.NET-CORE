@@ -8826,11 +8826,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MacBook\\Desktop\\Do_AN_ASP\\DoAnASP\\DoAnASP.csproj",
+      "projectUniqueName": "C:\\Users\\MacBook\\Desktop\\ASP.NET-CORE\\DoAnASP\\DoAnASP.csproj",
       "projectName": "DoAnASP",
-      "projectPath": "C:\\Users\\MacBook\\Desktop\\Do_AN_ASP\\DoAnASP\\DoAnASP.csproj",
+      "projectPath": "C:\\Users\\MacBook\\Desktop\\ASP.NET-CORE\\DoAnASP\\DoAnASP.csproj",
       "packagesPath": "C:\\Users\\MacBook\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MacBook\\Desktop\\Do_AN_ASP\\DoAnASP\\obj\\",
+      "outputPath": "C:\\Users\\MacBook\\Desktop\\ASP.NET-CORE\\DoAnASP\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MacBook\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -23,7 +23,7 @@ namespace DoAnASP.Areas.User.Controllers
         // GET: User/Loais
         public async Task<IActionResult> Index()
         {
-            ViewBag.a = _context.Blogs;
+            ViewBag.blog = _context.Blogs;
             ViewBag.cauhoi = _context.CauHois;
             //var dpLoai = _context.Loais.ToListAsync();
             return View(await _context.Loais.ToListAsync());

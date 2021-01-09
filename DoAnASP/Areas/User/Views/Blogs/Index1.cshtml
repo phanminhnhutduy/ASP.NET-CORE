@@ -1,0 +1,351 @@
+﻿@model IEnumerable<DoAnASP.Areas.Admin.Models.Blog>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<main>
+    <!-- Slider Area Start-->
+    <div class="slider-area slider-bg ">
+        <!-- Single Slider -->
+        <div class="single-slider d-flex align-items-center slider-height3">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-xl-8 col-lg-9 col-md-12 ">
+                        <div class="hero__caption hero__caption3 text-center">
+                            <h1 data-animation="fadeInLeft" data-delay=".6s ">HOME</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Slider Shape -->
+        <div class="slider-shape d-none d-lg-block">
+            <img class="slider-shape1" src="assets/img/hero/top-left-shape.png" alt="">
+        </div>
+    </div>
+    <!-- Slider Area End -->
+    <!-- Hero Area End-->
+    <!--? Blog Area Start-->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="new">Viết Blog mới </button>
+
+    @if (ViewBag.IDName == null)
+    {
+        <script language="javascript">
+            var button = document.getElementById("new");
+            button.onclick = function () {
+                alert("Bạn chư đăng nhập");
+            }
+        </script>
+    }
+    <section class="blog_area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="blog_left_sidebar">
+                        <article class="blog_item">
+                            @foreach (var item in Model)
+                            {
+                                @if (item.TrangThai != 3 && item.IDNguoiTao == ViewBag.IDName)
+                                {
+                                    <h5>Không có câu hỏi đã xóa</h5>
+                                    break;
+                                }
+                            }
+                            @foreach (var item in Model)
+                            {
+                                @if (item.TrangThai == 3 && item.IDNguoiTao == ViewBag.IDName)
+                                {@if (item.HinhAnh != null)
+                                    {
+                                        <div class="blog_item_img">
+                                            <img class="card-img rounded-0" src="~/blog/@item.HinhAnh" style="width : 300px;">
+                                            <a asp-action="Details" asp-route-id="@item.IDBlog" asp-controller="Blogs" class="blog_item_date">
+                                                <h3>@item.NgayTao</h3>
+                                                <p></p>
+                                            </a>
+                                        </div>
+                                    }
+                                <div class="blog_details">
+                                    <a class="d-inline-block" asp-action="Details" asp-route-id="@item.IDBlog" asp-controller="Blogs">
+                                        <h2 class="blog-head" style="color: #2d2d2d;">@item.TieuDe</h2>
+                                    </a>
+                                    <p>
+                                        @item.TomTat
+                                    </p>
+                                    <ul class="blog-info-link">
+
+                                        <li><i class="fa fa-eye"></i> @item.View</li>
+                                        @if (item.IDNguoiTao.ToString() == ViewBag.IDName)
+                                        {
+                                            <li>
+
+                                                <span><a asp-action="hoangtac" asp-controller="Blogs" asp-route-id="@item.IDBlog"> <i class="fa fa-undo"></i>Hoàng Tác bài viết </a></span>
+
+
+
+                                            </li>
+                                            <li>
+                                                <span><a asp-action="Edit" asp-route-id="@item.IDBlog"> <i class="fa fa-edit"></i> Sửa bài viết </a></span>
+
+
+
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            }
+                        </article>
+
+                        <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link">1</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a href="#" class="page-link">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+                        <aside class="single_sidebar_widget search_widget">
+                            <form form asp-controller="Blogs" asp-action="timkim" method="get">
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+
+                                        <input type="text" name="SearchString" class="form-control" placeholder='Search Keyword' />
+
+
+                                        <div class="input-group-append">
+                                            <button class="btns" type="submit"><i class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </aside>
+
+                        @await Html.PartialAsync("_Loai")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    @if (ViewBag.IDName != null)
+    {
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">create new</h4>
+
+                    </div>
+                    <div class="modal-body">
+                        <form enctype="multipart/form-data" asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label name="TieuDe" class="control-label">Tiêu đề</label><br />
+                                <input name="TieuDe" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label name="HinhAnh" class="control-label">Hình ảnh</label><br />
+                                <input type="file" name="ful" name="HinhAnh" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label name="TomTat" class="control-label">Tóm tắt</label><br />
+                                <input name="TomTat" class="form-control" />
+
+                            </div>
+                            <div class="form-group">
+                                <label name="NoiDung" class="control-label">Nội dung</label><br />
+                                <input name="NoiDung" class="form-control" />
+
+                            </div>
+
+                            <div class="form-group">
+                                <label name="IDLoai" class="control-label">Loai bài viết</label><br />
+                                <select name="IDLoai" class="form-control" asp-items="ViewBag.IDLoai"></select>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="IDNguoiTao" value="@ViewBag.IDName" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+    }
+
+
+    <!-- Blog Area End -->
+</main>
+@*<div class="main">
+    <div class="content">
+        <p>
+            <div class="search_box">
+
+                <form asp-controller="Blogs" asp-action="timkim" method="get">
+                    <input type="text" name="SearchString" class="text-box" placeholder="Search for Blog"><input type="submit" value="">
+                </form>
+            </div>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="new">Creat new blog </button>
+
+            @if (ViewBag.IDName == null)
+            {
+                <script language="javascript">
+                    var button = document.getElementById("new");
+                    button.onclick = function () {
+                        alert("Bạn chư đăng nhập");
+                    }
+                </script>
+            }
+        </p>
+        @foreach (var item in Model)
+        {
+            @if (item.TrangThai == 2)
+            {
+                <div class="box1">
+                    <div>
+                        <h2>@item.TieuDe</h2>
+                        <a asp-action="Details" asp-route-id="@item.IDBlog"><img src="~/blog/@item.HinhAnh" width="100" hight="100px"></a>
+                        <h5>
+                            @item.TomTat
+                        </h5>
+                    </div>
+                    <div class="data">
+                        @if (ViewBag.TaiKhoan != null)
+                        {
+                            @foreach (var item1 in ViewBag.TaiKhoan)
+                            {
+                                @if (item.IDNguoiTao == item1.IDTK)
+                                {
+                                    <h5>Tài khoản: @item1.Ten</h5>
+                                }
+                            }
+                        }
+                        @if (item.IDNguoiTao.ToString() == ViewBag.IDName)
+                        {<span><a asp-action="Edit" asp-route-id="@item.IDBlog"> sua Bai viet </a></span>
+
+                            <form asp-action="Xoa" asp-controller="Blogs" method="post">
+                                <input type="hidden" name="id" value="@item.IDBlog" />
+                                <input type="submit" value="Xóa" />
+                            </form>
+
+                        }
+                        <span><a asp-action="Details" asp-route-id="@item.IDBlog">Continue reading &gt;&gt;&gt; </a></span>
+                        <span style="float:right">View: @item.View</span>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="page_links">
+        <div class="sidebar">
+            <div class="sidebar_top">
+                <h3>Blog Categories</h3>
+                <div class="sidebar_top_list">
+                    @foreach (var item in ViewBag.Loai)
+                    {
+                        <ul>
+                            <li><a asp-action="Index" asp-controller="Loais"><span class="category-name">@item.TieuDe</span> <div class="clear"></div></a></li>
+
+                        </ul>
+                    }
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="page_bottom">
+            <p>Back To : <a href="#">Top</a> |  <a href="#">Home</a></p>
+        </div>
+    </div>
+</div>
+@if (ViewBag.IDName != null)
+{
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">create new</h4>
+
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label name="TieuDe" class="control-label">Tiêu đề</label><br />
+                            <input name="TieuDe" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label name="HinhAnh" class="control-label">Hình ảnh</label><br />
+                            <input type="file" name="ful" name="HinhAnh" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label name="TomTat" class="control-label">Tóm tắt</label><br />
+                            <input name="TomTat" class="form-control" />
+
+                        </div>
+                        <div class="form-group">
+                            <label name="NoiDung" class="control-label">Nội dung</label><br />
+                            <input name="NoiDung" class="form-control" />
+
+                        </div>
+
+                        <div class="form-group">
+                            <label name="IDLoai" class="control-label">Loai bài viết</label><br />
+                            <select name="IDLoai" class="form-control" asp-items="ViewBag.IDLoai"></select>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="IDNguoiTao" value="@ViewBag.IDName" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+}
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+

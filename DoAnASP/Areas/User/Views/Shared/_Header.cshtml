@@ -1,46 +1,46 @@
-﻿<div class="header">
-    <div class="header_top">
-        <div class="wrap">
-            <div class="header-top-left">
-                <div class="logo">
-                    <a href="index.html">
-                        <h1>SHARE</h1>
-                        <h2>The Blog</h2>
-                    </a>
+﻿<header>
+    <!-- Header Start -->
+    <div class="header-area header-transparent">
+        <div class="main-header ">
+            <div class="header-bottom  header-sticky">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-2 col-lg-2">
+                            <div class="logo">
+                                <a href="index.html"><img src="~/assets/img/logo/logo.png" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10">
+                            <div class="menu-wrapper d-flex align-items-center justify-content-end">
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                                            <li><a asp-controller="CauHois" asp-action="Index">Câu Hỏi</a></li>
+                                            <li><a asp-controller="Blogs" asp-action="Index">Blogs</a></li>
+                                            @if (ViewBag.IDName != null)
+                                            {
+                                                <li><a asp-controller="CauHois" asp-action="Index1">Câu Hỏi Đã Xóa</a></li>
+                                                <li><a asp-controller="Blogs" asp-action="Index1">Blogs Đã Xóa</a></li>
+                                            }
+                                            <!-- Button -->
+                                            <li class="button-header margin-left "><a asp-action="Signup" asp-controller="Login" class="btn">Sign Up</a></li>
+                                            <li class="button-header"><a asp-action="Index" asp-controller="Login" class="btn3">Sign In</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="menu">
-                    <ul class="menu bounce">
-                        <li class="active"><a asp-action="Index" asp-controller="Home" class="active">Home</a></li>
-                        <li><a asp-action="index" asp-controller="Blogs">Blog</a></li>
-                        <li><a asp-action="index" asp-controller="CauHois">Câu hỏi</a></li>
-                        <li><a asp-action="index" asp-controller="Login">Log In </a></li>
-                    </ul>
-                </div>
-                <div class="clear"></div>
             </div>
-            <div class="header-top-right">
-                <div class="social-icons">
-                    <ul>
-                        <li><a class="youtube" href="#" target="_blank"><span>Youtube</span></a></li>
-                        <li><a class="facebook" href="#" target="_blank"><span>Facebook</span> </a></li>
-                        <li><a class="twitter" href="#" target="_blank"><span>Twitter</span> </a></li>
-                        <li><a class="skype" href="#" target="_blank"><span>Skype</span> </a></li>
-                        <li><a class="likedin" href="#" target="_blank"><span>Likedin</span> </a></li>
-                        <li><a class="vimeo" href="#" target="_blank"><span>vimeo</span> </a></li>
-                        <div class="clear"></div>
-                    </ul>
-                </div>
-                <div class="search_box">
-                    
-                        @*<p>
-                            Title: <input type="text" name="SearchString">
-                            <input type="submit" value="Filter" />
-                        </p>*@
-                        
-                </div>
-                <div class="clear"></div>
-            </div>
-
         </div>
     </div>
-</div>
+    <!-- Header End -->
+</header>

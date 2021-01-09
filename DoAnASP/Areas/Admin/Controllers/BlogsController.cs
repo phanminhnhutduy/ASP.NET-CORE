@@ -149,7 +149,7 @@ namespace DoAnASP.Areas.Admin.Controllers
         {
             var duyettrangthai = _context.Blogs.Find(id);
             duyettrangthai.TrangThai = 2;
-            duyettrangthai.IDNguoiDuyet = 1; ;
+            duyettrangthai.IDNguoiDuyet = 1; 
             _context.Update(duyettrangthai);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

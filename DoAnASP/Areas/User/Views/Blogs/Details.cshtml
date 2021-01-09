@@ -5,89 +5,135 @@
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<div class="wrap">
-    <div class="main">
-        <div class="content">
-            <dl class="row">
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.TieuDe)
-                </dd>
-                <dd class="col-sm-10">
-                    <img src="~/blog/@Html.DisplayFor(model => model.HinhAnh)" />
-                </dd>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.TomTat)
-                </dd>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.NoiDung)
-                </dd>
-            </dl>
-        </div>
-        <div class="page_links">
-            <div class="sidebar">
-                <div class="sidebar_top">
-                    <h3>Blog Categories</h3>
-                    <div class="sidebar_top_list">
-                        @foreach (var item in ViewBag.Loai)
-                        {
-                            <ul>
-                                <li><a href="#"><span class="category-name">@item.TieuDe</span> <div class="clear"></div></a></li>
 
-                            </ul>
-                        }
+<main>
+    <!-- Slider Area Start-->
+    <div class="slider-area slider-bg ">
+        <!-- Single Slider -->
+        <div class="single-slider d-flex align-items-center slider-height3">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-xl-8 col-lg-9 col-md-12 ">
+                        <div class="hero__caption hero__caption3 text-center">
+                            <h1 data-animation="fadeInLeft" data-delay=".6s ">Blog Details</h1>
+                        </div>
                     </div>
                 </div>
-                <div class="clear"></div>
-            </div>
-            <div class="clear"></div>
-            <div class="page_bottom">
-                <p>Back To : <a href="#">Top</a> |  <a href="#">Home</a></p>
             </div>
         </div>
+        <!-- Slider Shape -->
+        <div class="slider-shape d-none d-lg-block">
+            <img class="slider-shape1" src="~/assets/img/hero/top-left-shape.png" alt="">
+        </div>
     </div>
-</div>
+    <!-- Slider Area End -->
+    <!--? Blog Area Start -->
+    <section class="blog_area single-post-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    <div class="single-post">
+                        <div class="feature-img">
+                            <img class="img-fluid" src="~/blog/@Model.HinhAnh" alt="">
+                        </div>
+                        <div class="blog_details">
+                            <h2 style="color: #2d2d2d;">
+                                @Model.TomTat
+                            </h2>
+                            <ul class="blog-info-link mt-3 mb-4">
+                                <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
+                                <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                            </ul>
+                            <p class="excert">
+                                @Model.NoiDung
+                            </p>
 
-<div class="box comment">
-    <ul class="list">
-        @foreach (var item in ViewBag.BinhLuan)
-        {
-            @if (Model.IDBlog == item.IDBV && item.TrangThai == 1)
-            {
+                        </div>
+                    </div>
+                    <div class="navigation-top">
+                        <div class="d-sm-flex justify-content-between text-center">
+                            <ul class="social-icons">
+                                <li><a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                            </ul>
+                        </div>
 
-                <li>
-                    <div class="data">
-                        <div class="title"> <a href="#"> @item.NgayTao</a></div>
-                        <p>@item.NoiDung</p>
-                        @if (item.IDTK.ToString() == ViewBag.IDName)
+                    </div>
+                    @foreach (var item in ViewBag.BinhLuan)
+                    {
+                        @if (Model.IDBlog == item.IDBV && item.TrangThai == 1)
                         {
 
+                            <div class="comments-area">
+                                <h4>Comments</h4>
+                                <div class="comment-list">
+                                    <div class="single-comment justify-content-between d-flex">
+                                        <div class="user justify-content-between d-flex">
+                                            <div class="thumb">
+                                                <img src="~/Admin/avatar/@ViewBag.hinh" alt="">
+                                            </div>
+                                            <div class="desc">
+                                                <p class="comment">
+                                                    @item.NoiDung
+                                                </p>
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <h5>
+                                                            @ViewBag.ten
+                                                        </h5>
+                                                        <p class="date">@item.NgayTao</p>
+                                                    </div>
+                                                    @if (item.IDTK.ToString() == ViewBag.IDName)
+                                                    {
 
-                            <form asp-action="Duyet" asp-controller="BinhLuans" method="post">
-                                <input type="hidden" name="id" value="@item.IDBL" />
-                                <input type="submit" value="Delete"  />
-                            </form>
-                           
+                                                        <div class="reply-btn">
+                                                            <form asp-action="Duyet" asp-controller="BinhLuans" method="post">
+                                                                <input type="hidden" name="id" value="@item.IDBL" />
+                                                                <i class="fa fa-trash"></i>
+                                                                <input type="submit" class="btn-reply text-uppercase" value="Delete" />
+                                                            </form>
+                                                        </div>
+
+
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            }
 
                         }
-                    </div>
-                    <div class="clear"></div>
-                </li>
-            }
-        }
-    </ul>
-</div>
-<form asp-action="Create" asp-controller="BinhLuans">
-    <div class="box comment">
-        <p>
-            <input type="text" name="NoiDung" value="">
-            <input type="hidden" name="IDBV" value="@Model.IDBlog" />
-            <input type="hidden" name="IDTK" value="@ViewBag.IDName" />
-            <input type="submit" value="Post">
-        </p>
-    </div>
-</form>
-<div id="fb-root"></div>
+                        <div class="comment-form">
+                            <h4>Comment </h4>                            
+                            <form asp-action="Create" asp-controller="BinhLuans" class="form-contact comment_form" id="commentForm">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <p>
+                                                <input type="text" name="NoiDung" value="">
+                                                <input type="hidden" name="IDBV" value="@Model.IDBlog" />
+                                                <input type="hidden" name="IDTK" value="@ViewBag.IDName" />
+                                                <div class="form-group">
+                                                    <button type="submit" class="button button-contactForm btn_1 boxed-btn">Post Comment</button>
+                                                </div>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </form>
+                        </div>
+                    </div>              
+            </div>
+        </div>
+    </section>
+    <!-- Blog Area End -->
+</main>
 
 
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=2798027560410846&autoLogAppEvents=1" nonce="Y0hAkwzZ"></script>
-<div class="fb-comments" data-href="https://localhost:44305/User/Blogs/Details/Model.IDBV" data-width="20" data-numposts="5"></div>
+

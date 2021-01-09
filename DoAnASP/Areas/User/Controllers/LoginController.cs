@@ -34,6 +34,10 @@ namespace DoAnASP.Areas.User.Controllers
 
             return View();
         }
+        public IActionResult Signup()
+        {
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(TaiKhoan taikhoan)

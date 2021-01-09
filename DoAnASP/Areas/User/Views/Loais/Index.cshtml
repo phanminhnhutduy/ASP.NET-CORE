@@ -3,26 +3,166 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
-<div class="wrap">
-    <div class="main">
-        <div class="content">
-            <div class="box1">
-                @foreach (var item in Model)
-                {
-                    <div class="box1">
-                        <div>
-                            <h2>@item.TieuDe</h2>
-                            @foreach (var item1 in ViewBag.cauhoi)
-                            {
-                                @if (item.IDLoai == item1.IDLoai)
-                                    @item1.NoiDung
-                                <span><a asp-action="Details" asp-route-id="@item1.IDBlog"></a></span>
-                            }
+
+<main>
+    <!-- Slider Area Start-->
+    <div class="slider-area slider-bg ">
+        <!-- Single Slider -->
+        <div class="single-slider d-flex align-items-center slider-height3">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-xl-8 col-lg-9 col-md-12 ">
+                        <div class="hero__caption hero__caption3 text-center">
+                            <h1 data-animation="fadeInLeft" data-delay=".6s ">HOME</h1>
                         </div>
                     </div>
-                }
+                </div>
             </div>
-           </div>
+        </div>
+        <!-- Slider Shape -->
+        <div class="slider-shape d-none d-lg-block">
+            <img class="slider-shape1" src="assets/img/hero/top-left-shape.png" alt="">
+        </div>
     </div>
-</div>  
+    <!-- Slider Area End -->
+    <!-- Hero Area End-->
+    <!--? Blog Area Start-->
+  
+    <section class="blog_area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="blog_left_sidebar">
+                        <article class="blog_item">
+                            <h5>Blog</h5>
+                            @foreach (var item in Model)
+                                @foreach (var item1 in ViewBag.blog)
+                                {
+                                    @if (item1.TrangThai == 2 && item.IDLoai == item1.IDLoai)
+                                    {
+                                        <div class="blog_item_img">
+                                            <img class="card-img rounded-0" src="~/blog/@item1.HinhAnh">
+                                            <a asp-action="Details" asp-route-id="@item1.IDBlog" asp-controller="Blogs" class="blog_item_date">
+                                                <h3>@item1.NgayTao</h3>
+                                                <p></p>
+                                            </a>
+                                        </div>
+                                        <div class="blog_details">
+                                            <a class="d-inline-block" asp-action="Details" asp-route-id="@item1.IDBlog" asp-controller="Blogs">
+                                                <h2 class="blog-head" style="color: #2d2d2d;">@item1.TieuDe</h2>
+                                            </a>
+                                            <p>
+                                                @item1.TomTat
+                                            </p>
+                                            <ul class="blog-info-link">
+
+                                                <li><a href="#"><i class="fa fa-eye"></i> @item1.View</a></li>
+                                                @if (item.IDNguoiTao.ToString() == ViewBag.IDName)
+                                                {
+
+                                                    <form asp-action="Xoa" asp-controller="Blogs" method="post">
+                                                        <input type="hidden" name="id" value="@item1.IDBlog" />
+                                                        <i class="fa fa-trash"></i>
+                                                        <input type="submit" value="Xóa" />
+                                                    </form>
+
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                }
+                        </article>
+                        <article class="blog_item">
+                            <h5>Câu Hỏi</h5>
+                            @foreach (var item in Model)
+                                @foreach (var item1 in ViewBag.cauhoi)
+                                {
+                                    @if (item1.TrangThai == 2 && item.IDLoai == item1.IDLoai)
+                                    {
+                                        <div class="blog_item_img">
+                                            <img class="card-img rounded-0" src="~/blog/@item1.HinhAnh">
+                                            <a asp-action="Details" asp-route-id="@item1.IDBlog" asp-controller="Blogs" class="blog_item_date">
+                                                <h3>@item1.NgayTao</h3>
+                                                <p></p>
+                                            </a>
+                                        </div>
+                                        <div class="blog_details">
+                                            <a class="d-inline-block" asp-action="Details" asp-route-id="@item1.IDBlog" asp-controller="Blogs">
+                                                <h2 class="blog-head" style="color: #2d2d2d;">@item1.TieuDe</h2>
+                                            </a>
+                                            <p>
+                                                @item1.TomTat
+                                            </p>
+                                            <ul class="blog-info-link">
+
+                                                <li><a href="#"><i class="fa fa-eye"></i> @item1.View</a></li>
+                                                @if (item.IDNguoiTao.ToString() == ViewBag.IDName)
+                                                {
+
+                                                    <form asp-action="Xoa" asp-controller="Blogs" method="post">
+                                                        <input type="hidden" name="id" value="@item1.IDBlog" />
+                                                        <i class="fa fa-trash"></i>
+                                                        <input type="submit" value="Xóa" />
+                                                    </form>
+
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                }
+                        </article>
+                        <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link">1</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a href="#" class="page-link">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+                        <aside class="single_sidebar_widget search_widget">
+                            <form form asp-controller="Blogs" asp-action="timkim" method="get">
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+
+                                        <input type="text" name="SearchString" class="form-control" placeholder='Search Keyword' />
+
+
+                                        <div class="input-group-append">
+                                            <button class="btns" type="submit"><i class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </aside>
+
+                       
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+ 
+
+    <!-- Blog Area End -->
+</main>
 

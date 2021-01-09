@@ -16,7 +16,7 @@ namespace DoAnASP.Areas.User.Controllers
     [Area("User")]
     public class BlogsController : Controller
     {
-        static int i = 0;
+       
         private readonly DpContext _context;
         public bool tim = false;
         public BlogsController(DpContext context)
@@ -25,11 +25,13 @@ namespace DoAnASP.Areas.User.Controllers
         }
         static int idbaiviet;
         // GET: User/Blogs
-        public async Task<IActionResult> Index(string TimKim)
+        public async Task<IActionResult> Index(int ? page=0)
         {
-                var dpContext = _context.Blogs.Include(b => b.loai);
+
+                var dpContext = _context.Blogs.Include(b => b.loai).OrderByDescending(a=>a.View);
                 ViewBag.Loai = _context.Loais;
                 ViewBag.TaiKhoan = _context.TaiKhoans;
+          
 
             ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe");
            
@@ -43,9 +45,12 @@ namespace DoAnASP.Areas.User.Controllers
             return View(await dpContext.ToListAsync());            
         }
         static int kq=0;
+       
         // GET: User/Blogs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            
+
             if (kq != 0)
                 id = idbaiviet;
             if (HttpContext.Session.GetString("user") != null)
@@ -53,7 +58,7 @@ namespace DoAnASP.Areas.User.Controllers
                 JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
                 ViewBag.IDName = us.SelectToken("IDTK").ToString();
             } 
-            HttpContext.Session.SetString("view", i.ToString());            
+                     
             if (id == null)
             {
                 return NotFound();
@@ -62,7 +67,7 @@ namespace DoAnASP.Areas.User.Controllers
             var blog = await _context.Blogs
                 .Include(b => b.loai)
                 .FirstOrDefaultAsync(m => m.IDBlog == id);
-            //blog.View = Int32.Parse(HttpContext.Session.GetString("view"));           
+            blog.View = blog.View + 1;          
             if (blog == null)
             {
                 return NotFound();
@@ -70,30 +75,46 @@ namespace DoAnASP.Areas.User.Controllers
            await _context.SaveChangesAsync();
             ViewBag.Loai = _context.Loais;
             ViewBag.BinhLuan = _context.BinhLuans;
+
+            var tenngtao = from s in _context.BinhLuans
+                           join r in _context.TaiKhoans on s.IDTK equals r.IDTK
+                           join w in _context.Blogs on s.IDBV equals w.IDBlog
+                           select new
+                           {                             
+                               r.Ten,
+                               r.HinhAnh
+                           };
+            foreach (var item in tenngtao)
+            {
+                ViewBag.ten = item.Ten.ToString();
+                ViewBag.hinh = item.HinhAnh.ToString();
+            }
+           
+
             return View(blog);
         }      
-        public async Task<IActionResult> DetailsPost()
-        {
-            kq = kq +1;
-            idbaiviet = int.Parse(HttpContext.Session.GetString("idbaiviet").ToString());
-            HttpContext.Session.Remove("idbaiviet");
-            if (idbaiviet == null)
-            {
-                return NotFound();
-            }
-            var blog = await _context.Blogs
-                .Include(b => b.loai)
-                .FirstOrDefaultAsync(m => m.IDBlog == idbaiviet);
-           // blog.View = Int32.Parse(HttpContext.Session.GetString("view"));
-            if (blog == null)
-            {
-                return NotFound();
-            }
-            await _context.SaveChangesAsync();           
-            ViewBag.Loai = _context.Loais;
-            ViewBag.BinhLuan = _context.BinhLuans;
-            return RedirectToAction("Details");
-        }
+        //public async Task<IActionResult> DetailsPost()
+        //{
+        //    kq = kq +1;
+        //    idbaiviet = int.Parse(HttpContext.Session.GetString("idbaiviet").ToString());
+        //    HttpContext.Session.Remove("idbaiviet");
+        //    if (idbaiviet == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var blog = await _context.Blogs
+        //        .Include(b => b.loai)
+        //        .FirstOrDefaultAsync(m => m.IDBlog == idbaiviet);
+        //   // blog.View = Int32.Parse(HttpContext.Session.GetString("view"));
+        //    if (blog == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    await _context.SaveChangesAsync();           
+        //    ViewBag.Loai = _context.Loais;
+        //    ViewBag.BinhLuan = _context.BinhLuans;
+        //    return RedirectToAction("Details");
+        //}
         // GET: User/Blogs/Create
         public IActionResult Create()
         {
@@ -113,14 +134,17 @@ namespace DoAnASP.Areas.User.Controllers
             {
                 _context.Add(blog);
                 await _context.SaveChangesAsync();
-                var parth = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/blog", blog.IDBlog + "." +
-                ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1]);
-                using (var stream = new FileStream(parth, FileMode.Create))
+                if (blog.HinhAnh != null)
                 {
-                    await ful.CopyToAsync(stream);
+                    var parth = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/blog", blog.IDBlog + "." +
+                    ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1]);
+                    using (var stream = new FileStream(parth, FileMode.Create))
+                    {
+                        await ful.CopyToAsync(stream);
+                    }
+                    blog.HinhAnh = blog.IDBlog + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
+                    _context.Update(blog);
                 }
-                blog.HinhAnh = blog.IDBlog + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
-                _context.Update(blog);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -131,6 +155,7 @@ namespace DoAnASP.Areas.User.Controllers
         // GET: User/Blogs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.Loai = _context.Loais;
             if (id == null)
             {
                 return NotFound();
@@ -140,7 +165,7 @@ namespace DoAnASP.Areas.User.Controllers
             {
                 return NotFound();
             }
-            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "IDLoai", blog.IDLoai);
+            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe", blog.IDLoai);
             return View(blog);
         }
 
@@ -149,18 +174,33 @@ namespace DoAnASP.Areas.User.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IDBlog,TieuDe,HinhAnh,TomTat,NoiDung,IDLoai,IDNguoiTao,NgayTao,NgayDuyet,View,IDNguoiDuyet,TrangThai")] Blog blog)
-        {
+        public async Task<IActionResult> Edit(int id, [Bind("IDBlog,TieuDe,HinhAnh,TomTat,NoiDung,IDLoai,IDNguoiTao,NgayTao,NgayDuyet,View,IDNguoiDuyet,TrangThai")] Blog blog, IFormFile ful)
+        { 
             if (id != blog.IDBlog)
             {
                 return NotFound();
             }
+           
+          
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(blog);
+                    if (blog.HinhAnh != null)
+                    {
+                        _context.Update(blog);
+                        var parth = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/blog", blog.IDBlog + "." +
+                   ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1]);
+                        using (var stream = new FileStream(parth, FileMode.Create))
+                        {
+                            await ful.CopyToAsync(stream);
+                        }
+                        blog.HinhAnh = blog.IDBlog + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
+                    }
+                        _context.Update(blog);
+
                     await _context.SaveChangesAsync();
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -175,7 +215,7 @@ namespace DoAnASP.Areas.User.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "IDLoai", blog.IDLoai);
+            ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe", blog.IDLoai);
             return View(blog);
         }
 
@@ -221,6 +261,27 @@ namespace DoAnASP.Areas.User.Controllers
             }
             tim = true;
             return View(await doctors.ToListAsync());
+        }
+   
+        public async Task<IActionResult> Xoa(int id)
+        {
+            var duyettrangthai = _context.Blogs.Find(id);
+            duyettrangthai.TrangThai = 3;
+           
+            _context.Update(duyettrangthai);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index","Blogs");
+            //return View(blog);
+        }
+        public async Task<IActionResult> hoangtac(int id)
+        {
+            var duyettrangthai = _context.Blogs.Find(id);
+            duyettrangthai.TrangThai = 1;
+
+            _context.Update(duyettrangthai);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Blogs");
+            //return View(blog);
         }
     }
 }

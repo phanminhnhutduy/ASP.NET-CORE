@@ -7,79 +7,145 @@
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-
-<div class="main">
-    <div class="content">
-        <p>
-            <div class="search_box">
-                <form asp-controller="Blogs" asp-action="timkim" method="get">
-                    <input type="text" name="SearchString" class="text-box" placeholder="Search for Blog"><input type="submit" value="">
-                </form>
-            </div>
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Creat new question</button>
-            @if (ViewBag.IDName == null)
-            {
-                <script language="javascript">
-                    var button = document.getElementById("new");
-                    button.onclick = function () {
-                        alert("Bạn chư đăng nhập");
-                    }
-                </script>
-            }
-        </p>
-        @foreach (var item in Model)
-        {
-            @if (item.TrangThai == 2)
-            {
-                <div class="box1">
-                    <div>
-                        <h4 style="font-weight:bold">@item.TieuDe</h4>
-                        <a asp-action="Details" asp-route-id="@item.IDBlog"><img src="~/cauhoi/@item.HinhAnh" width="100" hight="100px"></a>
-                        <h5>
-                            @item.TomTat
-                        </h5>
+<main>
+    <!-- Slider Area Start-->
+    <div class="slider-area slider-bg ">
+        <!-- Single Slider -->
+        <div class="single-slider d-flex align-items-center slider-height3">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-xl-8 col-lg-9 col-md-12 ">
+                        <div class="hero__caption hero__caption3 text-center">
+                            <h1 data-animation="fadeInLeft" data-delay=".6s ">CAUHOI</h1>
+                        </div>
                     </div>
-                    <div class="data">
-                        @foreach (var item1 in ViewBag.TaiKhoan)
-                        {
-                            @if (item.IDNguoiTao == item1.IDTK)
+                </div>
+            </div>
+        </div>
+        <!-- Slider Shape -->
+        <div class="slider-shape d-none d-lg-block">
+            <img class="slider-shape1" src="~/assets/img/hero/top-left-shape.png" alt="">
+        </div>
+    </div>
+    <!-- Slider Area End -->
+    <!-- Hero Area End-->
+    <!--? Blog Area Start-->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="new">Đặt câu hỏi</button>
+
+    @if (ViewBag.IDName == null)
+    {
+        <script language="javascript">
+            var button = document.getElementById("new");
+            button.onclick = function () {
+                alert("Bạn chư đăng nhập");
+            }
+        </script>
+    }
+    <section class="blog_area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="blog_left_sidebar">
+                        <article class="blog_item">
+                            @foreach (var item in Model)
                             {
-                                <h5>Tài khoản: @item1.Ten</h5>
+                                @if (item.TrangThai == 2)
+                                {
+                                    @if (item.HinhAnh != null)
+                                    {
+                                    <div class="blog_item_img">
+                                        <img class="card-img rounded-0" src="~/cauhoi/@item.HinhAnh"style="width : 300px;">
+                                        <a asp-action="Details" asp-route-id="@item.IDBlog" asp-controller="CauHois" class="blog_item_date">
+                                            <h3>@item.NgayTao</h3>
+                                            <p></p>
+                                        </a>
+                                    </div>
+                                    }
+                                    <div class="blog_details">
+                                        <a class="d-inline-block" asp-action="Details" asp-route-id="@item.IDBlog" asp-controller="CauHois">
+                                            <h2 class="blog-head" style="color: #2d2d2d;">@item.TieuDe</h2>
+                                        </a>
+                                        <p>
+                                            @item.TomTat
+                                        </p>
+                                        <ul class="blog-info-link">
+
+                                            <li><a href="#"><i class="fa fa-eye"></i> @item.View</a></li>
+
+
+                                            @if (item.IDNguoiTao.ToString() == ViewBag.IDName)
+                                            {
+                                                <li>
+
+                                                    <span><a asp-action="Xoa" asp-controller="CauHois" asp-route-id="@item.IDBlog"> <i class="fa fa-trash"></i> Xóa bài viết </a></span>
+
+
+
+                                                </li>
+                                                <li>
+                                                    <span><a asp-action="Edit" asp-route-id="@item.IDBlog"> <i class="fa fa-edit"></i> sua Bai viet </a></span>
+
+
+
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
                             }
-                        }
-                        @if (item.IDNguoiTao.ToString() == ViewBag.IDName)
-                        {
-                            <span><a asp-action="Edit" asp-route-id="@item.IDBlog"> sua Bai viet </a></span>
-                        }
-                        <span><a asp-action="Details" asp-route-id="@item.IDBlog">Continue reading &gt;&gt;&gt; </a></span>
-                        <span style="float:right">View: @item.View</span>
+                        </article>
+
+                        <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link">1</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a href="#" class="page-link">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
-            }
-        }
-    </div>
-    <div class="page_links">
-        <div class="sidebar">
-            <div class="sidebar_top">
-                <h3>Blog Categories</h3>
-                <div class="sidebar_top_list">
-                    @foreach (var item in ViewBag.Loai)
-                    {
-                        <ul>
-                            <li><a asp-action="Index" asp-controller="Loais"><span class="category-name">@item.TieuDe</span> <div class="clear"></div></a></li>
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+                        <aside class="single_sidebar_widget search_widget">
+                            <form form asp-controller="CauHois" asp-action="timkim" method="get">
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
 
-                        </ul>
-                    }
+                                        <input type="text" name="SearchString" class="form-control" placeholder='Search Keyword' />
+
+
+                                        <div class="input-group-append">
+                                            <button class="btns" type="submit"><i class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </aside>
+
+                        @await Html.PartialAsync("_Loai")
+                    </div>
                 </div>
+
             </div>
-            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-        <div class="page_bottom">
-            <p>Back To : <a href="#">Top</a> |  <a href="#">Home</a></p>
-        </div>
-    </div>
-</div>
+    </section>
+    <!-- Blog Area End -->
+</main>
+
 
 @if (ViewBag.IDName != null)
 {
@@ -133,7 +199,6 @@
         </div>
     </div>
 }
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 

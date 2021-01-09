@@ -69,7 +69,7 @@ namespace DoAnASP.Areas.User.Controllers
                 _context.Add(binhLuan);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("DetailsPost", "Blogs");
+                return Redirect(Request.Headers["Referer"].ToString());
             }
             ViewData["IDTK"] = new SelectList(_context.TaiKhoans, "IDTK", "IDTK", binhLuan.IDTK);
           return View(binhLuan);

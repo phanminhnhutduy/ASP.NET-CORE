@@ -33,7 +33,12 @@ namespace DoAnASP.Areas.User.Controllers
             ViewBag.cauhois = _context.CauHois;
             ViewBag.TaiKhoan = _context.TaiKhoans;
 
-           
+            if (HttpContext.Session.GetString("user") != null)
+            {
+                JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
+             
+                ViewBag.IDName = us.SelectToken("IDTK").ToString();
+            }
             ViewData["IDLoai"] = new SelectList(_context.Loais, "IDLoai", "TieuDe");
             ViewData["IDTK"] = new SelectList(_context.TaiKhoans, "IDTK", "Ten");
             ViewData["IDNguoiTao"] = new SelectList(_context.TaiKhoans, "IDTK", "Ten");
@@ -43,11 +48,12 @@ namespace DoAnASP.Areas.User.Controllers
 public async Task<IActionResult> timkim(string searchString)
         {
             var doctors = from m in _context.Blogs
-                          select m;
 
+                          select m;
             if (!String.IsNullOrEmpty(searchString))
             {
                 doctors = doctors.Where(s => s.TieuDe.Contains(searchString));
+              
             }
             tim = true;
             return View(await doctors.ToListAsync());
