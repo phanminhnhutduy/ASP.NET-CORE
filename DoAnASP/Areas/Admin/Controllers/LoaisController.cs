@@ -23,6 +23,7 @@ namespace DoAnASP.Areas.Admin.Controllers
         // GET: Admin/Loais
         public async Task<IActionResult> Index()
         {
+            ViewBag.tentk = _context.TaiKhoans;
             return View(await _context.Loais.ToListAsync());
         }
 
@@ -63,6 +64,8 @@ namespace DoAnASP.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.IDTK = _context.TaiKhoans;
+            ViewData["IDTK"] = new SelectList(_context.TaiKhoans, "IDTK", "Ten" );
             return View(loai);
         }
 

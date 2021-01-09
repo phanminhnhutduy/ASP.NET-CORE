@@ -143,8 +143,7 @@ namespace DoAnASP.Areas.User.Controllers
             {
                 _context.Add(cauhoi);
                 await _context.SaveChangesAsync();
-                if (cauhoi.HinhAnh != null)
-                {
+               
 
 
                     var parth = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/cauhoi", cauhoi.IDBlog + "." +
@@ -155,7 +154,7 @@ namespace DoAnASP.Areas.User.Controllers
                     }
                     cauhoi.HinhAnh = cauhoi.IDBlog + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
                     _context.Update(cauhoi);
-                }
+                
                     await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

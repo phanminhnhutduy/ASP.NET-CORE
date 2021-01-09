@@ -134,8 +134,7 @@ namespace DoAnASP.Areas.User.Controllers
             {
                 _context.Add(blog);
                 await _context.SaveChangesAsync();
-                if (blog.HinhAnh != null)
-                {
+               
                     var parth = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/blog", blog.IDBlog + "." +
                     ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1]);
                     using (var stream = new FileStream(parth, FileMode.Create))
@@ -144,7 +143,7 @@ namespace DoAnASP.Areas.User.Controllers
                     }
                     blog.HinhAnh = blog.IDBlog + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
                     _context.Update(blog);
-                }
+                
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

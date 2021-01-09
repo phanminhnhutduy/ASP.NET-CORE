@@ -31,15 +31,14 @@ namespace DoAnASP.Areas.Admin.Controllers
             return View(await dpContext.ToListAsync());
             
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+      
 
         // GET: Admin/Blogs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.tentk = _context.TaiKhoans;
 
-            JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
-            ViewBag.IDBVss = us.SelectToken("IDBV").ToString();
+           
             if (id == null)
             {
                 return NotFound();

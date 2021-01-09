@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+
 
 <p>
     <a asp-action="Create"> New</a>
@@ -14,13 +14,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TieuDe)
+               Tiêu Đề
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayTao)
+                Ngày Tạo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IDNguoiTao)
+              Người Tạo
             </th>
             <th></th>
         </tr>
@@ -35,7 +35,13 @@
                 @Html.DisplayFor(modelItem => item.NgayTao)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IDNguoiTao)
+                @foreach (var item1 in ViewBag.tentk)
+                {
+                    @if (item.IDNguoiTao == item1.IDTK)
+                    {
+                        @item1.Ten;
+                    }
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IDLoai">Edit</a> |

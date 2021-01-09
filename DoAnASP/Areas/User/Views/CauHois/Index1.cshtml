@@ -40,7 +40,7 @@
                             @foreach (var item in Model)
                             {
                               
-                                @if (item.TrangThai != 3&&item.IDNguoiTao==ViewBag.IDName)
+                                @if (item.TrangThai != 3&&item.IDNguoiTao.ToString()==ViewBag.IDName)
                                 {
                                     <h5>Không có câu hỏi đã xóa</h5>
                                     break;
@@ -48,7 +48,7 @@
                             }
                             @foreach (var item in Model)
                                 {
-                                    @if (item.TrangThai == 3 && item.IDNguoiTao == ViewBag.IDName)
+                                    @if (item.TrangThai == 3 && item.IDNguoiTao.ToString() == ViewBag.IDName)
                                     {
                                         @if (item.HinhAnh != null)
                                         {

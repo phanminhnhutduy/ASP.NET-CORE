@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using DoAnASP.Areas.Admin.Models;
 using DoAnASP.Areas.User.Data;
 using EmptyProject_Test.Areas.Admin.Data;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace DoAnASP.Areas.User.Controllers
 {
@@ -56,11 +58,22 @@ namespace DoAnASP.Areas.User.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IDTK,Ten,Password,HinhAnh,Quyen,TrangThai")] TaiKhoan taiKhoan)
+        public async Task<IActionResult> Create([Bind("IDTK,Ten,Password,HinhAnh,Quyen,TrangThai")] TaiKhoan taiKhoan, IFormFile ful)
         {
             if (ModelState.IsValid)
             {
                 taiKhoan.Password = StringProcess.CreateMD5Hash(taiKhoan.Password);
+                _context.Add(taiKhoan);
+                await _context.SaveChangesAsync();
+                var parth = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Admin/avatar", taiKhoan.IDTK + "." +
+                ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1]);
+                using (var stream = new FileStream(parth, FileMode.Create))
+                {
+                    await ful.CopyToAsync(stream);
+                }
+                taiKhoan.HinhAnh = taiKhoan.IDTK + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
+              
+               
                 _context.Add(taiKhoan);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Login");

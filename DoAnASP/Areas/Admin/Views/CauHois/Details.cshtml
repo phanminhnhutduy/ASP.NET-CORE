@@ -12,49 +12,57 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TieuDe)
+            Tiêu Đề
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TieuDe)
         </dd>
         <dt class="col-sm-2">
-            <img src="~/blog/ @Html.DisplayNameFor(model => model.HinhAnh)" />
+            Hình Ảnh
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.HinhAnh)
+            <img src="~/cauhoi/@Html.DisplayFor(model => model.HinhAnh)" />
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TomTat)
+            Tóm Tắt
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TomTat)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NoiDung)
+            Nội Dung
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NoiDung)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.loai)
+            Loại
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.loai.IDLoai)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IDNguoiTao)
+            Người Tạo
         </dt>
+       
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IDNguoiTao)
+            @foreach (var item1 in ViewBag.tentk)
+            {
+                @if (@Html.DisplayFor(model => model.IDNguoiTao).ToString() == item1.IDTK.ToString())
+                {
+                    @item1.Ten;
+                }
+            }
+
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayTao)
+            Ngày Tạo
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NgayTao)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayDuyet)
+            Ngày Duyệt
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NgayDuyet)
@@ -66,13 +74,11 @@
             @Html.DisplayFor(model => model.View)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IDNguoiDuyet)
+            Người Duyệt
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IDNguoiDuyet)
-        </dd>
+       
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
+            Trạng Thái
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TrangThai)
