@@ -12,49 +12,49 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-           Tiêu Đề
+            Tiêu Đề
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TieuDe)
         </dd>
         <dt class="col-sm-2">
-          Hình Ảnh
+            Hình Ảnh
         </dt>
         <dd class="col-sm-10">
             <img src="~/blog/@Html.DisplayFor(model => model.HinhAnh)" />
         </dd>
         <dt class="col-sm-2">
-           Tóm Tắt
+            Tóm Tắt
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TomTat)
         </dd>
         <dt class="col-sm-2">
-          Nội Dung
+            Nội Dung
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NoiDung)
         </dd>
         <dt class="col-sm-2">
-          Loại
+            Loại
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.loai.IDLoai)
         </dd>
         <dt class="col-sm-2">
-          Tên Người Tạo
+            Tên Người Tạo
         </dt>
-        @*<dd class="col-sm-10">
+        <dd class="col-sm-10">
             @foreach (var item1 in ViewBag.tentk)
             {
-                @if (@Html.DisplayFor(model => model.IDNguoiTao) == item1.IDTK)
+                @if (Model.IDNguoiTao == item1.IDTK)
                 {
                     @item1.Ten;
                 }
             }
-        </dd>*@
+        </dd>
         <dt class="col-sm-2">
-           Ngày Tạo
+            Ngày Tạo
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NgayTao)
@@ -74,9 +74,15 @@
         <dt class="col-sm-2">
             Tên Người Duyệt
         </dt>
-       
+        @foreach (var item1 in ViewBag.tentk)
+        {
+            @if (Model.IDNguoiDuyet == item1.IDTK)
+            {
+                @item1.Ten;
+            }
+        }
         <dt class="col-sm-2">
-          Trạng Thái
+            Trạng Thái
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TrangThai)
@@ -84,6 +90,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.IDBlog">Edit</a> |
+   
     <a asp-action="Index">Back to List</a>
 </div>

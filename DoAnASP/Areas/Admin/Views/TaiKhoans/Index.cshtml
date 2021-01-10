@@ -8,7 +8,8 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create" asp-controller="TaiKhoans">Create New</a>
+    
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="new">Tạo Tài Khoản </button>
 
 </p>
 <table class="table">
@@ -21,7 +22,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Ten)
             </th>
-           
+
 
 
             <th></th>
@@ -30,22 +31,57 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                <img src="~/Admin/avatar/@Html.DisplayFor(modelItem => item.HinhAnh)" style="width:50px;height:50px" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ten)
-            </td>
-         
+            <tr>
+                <td>
+                    <img src="~/Admin/avatar/@Html.DisplayFor(modelItem => item.HinhAnh)" style="width:50px;height:50px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ten)
+                </td>
 
 
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IDTK">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IDTK">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IDTK">Delete</a>
-            </td>
-        </tr>
+
+                <td>
+
+                    <a asp-action="Details" asp-route-id="@item.IDTK">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IDTK">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">create new</h4>
+
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label name="Ten" class="control-label">Tên</label><br />
+                        <input name="Ten" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label name="Password" class="control-label">Password</label><br />
+                        <input name="Password" class="form-control" />
+                    </div>
+                  
+                    <div class="form-group">
+                        <label name="HinhAnh" class="control-label">Hình ảnh</label><br />
+                        <input type="file" name="ful" name="HinhAnh" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

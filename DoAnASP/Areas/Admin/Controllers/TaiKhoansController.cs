@@ -75,7 +75,7 @@ namespace DoAnASP.Areas.Admin.Controllers
                 taiKhoan.HinhAnh = taiKhoan.IDTK + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
                 _context.Update(taiKhoan);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Login");
+                return RedirectToAction(nameof(Index));
             }
             return View(taiKhoan);
         }

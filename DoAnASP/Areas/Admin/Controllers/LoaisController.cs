@@ -30,6 +30,7 @@ namespace DoAnASP.Areas.Admin.Controllers
         // GET: Admin/Loais/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.tentk = _context.TaiKhoans;
             if (id == null)
             {
                 return NotFound();

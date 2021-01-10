@@ -108,9 +108,16 @@
                         }
 
                     }
-                    <div class="comment-form">
-                        <h4>Comment </h4>
-                        <form asp-action="Create" asp-controller="BinhLuans" class="form-contact comment_form" id="commentForm">
+                <div class="comment-form">
+                    <h4>Comment </h4>
+                    @if (ViewBag.IDName == null)
+                    {
+                        <h5>Hãy Đăng Nhập để bình luận</h5>
+                    }
+                    @if (ViewBag.IDName != null)
+                    {
+
+                        <form asp-action="Create" asp-controller="BinhLuanCHs" class="form-contact comment_form" id="commentForm">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -119,21 +126,19 @@
                                             <input type="hidden" name="IDBV" value="@Model.IDBlog" />
                                             <input type="hidden" name="IDTK" value="@ViewBag.IDName" />
                                             <div class="form-group">
-                                                @if (ViewBag.IDName != null)
-                                                {
-                                                    <button type="submit" class="button button-contactForm btn_1 boxed-btn">Post Comment</button>
-                                                }
-                                               @if(ViewBag.IDName==null) {
-                                                <button disabled type="submit" class="button button-contactForm btn_1 boxed-btn">Post Comment</button>
-                                                
-                                            
-                                            }</div>
+                                                <button type="submit" class="button button-contactForm btn_1 boxed-btn" id="postcmt">Post Comment</button>
+
+
+                                            </div>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    }
+                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=2798027560410846&autoLogAppEvents=1" nonce="Y0hAkwzZ"></script>
+                    <div class="fb-comments" data-href="https://localhost:44305/User/Cauhois/Details/Model.IDBV" data-width="20" data-numposts="5"></div>
+                </div>
                 </div>
             </div>
         </div>

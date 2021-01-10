@@ -12,22 +12,27 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TieuDe)
-        </dt>
+      Tiêu Đề
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.TieuDe)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayTao)
+           Ngày Tạo
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NgayTao)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IDNguoiTao)
+        Người Tạo
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IDNguoiTao)
+        <dd class="col-sm-10">
+            @foreach (var item1 in ViewBag.tentk)
+            {
+                @if (Model.IDNguoiTao == item1.IDTK)
+                {
+                    @item1.Ten;
+                }
+            }
         </dd>
     </dl>
 </div>

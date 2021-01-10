@@ -44,11 +44,11 @@
         <dt class="col-sm-2">
             Người Tạo
         </dt>
-       
+
         <dd class="col-sm-10">
             @foreach (var item1 in ViewBag.tentk)
             {
-                @if (@Html.DisplayFor(model => model.IDNguoiTao).ToString() == item1.IDTK.ToString())
+                @if (Model.IDNguoiTao == item1.IDTK)
                 {
                     @item1.Ten;
                 }
@@ -76,7 +76,13 @@
         <dt class="col-sm-2">
             Người Duyệt
         </dt>
-       
+        @foreach (var item1 in ViewBag.tentk)
+        {
+            @if (Model.IDNguoiDuyet == item1.IDTK)
+            {
+                @item1.Ten;
+            }
+        }
         <dt class="col-sm-2">
             Trạng Thái
         </dt>
@@ -86,6 +92,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.IDBlog">Edit</a> |
+   
     <a asp-action="Index">Back to List</a>
 </div>
