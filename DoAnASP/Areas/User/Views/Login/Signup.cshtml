@@ -6,22 +6,36 @@
 
 <main class="login-body" data-vide-bg="~/assets/img/login-bg.mp4">
     <!-- Login Admin -->
-    <form class="form-default" asp-action="Create" asp-controller="TaiKhoans" enctype="multipart/form-data">
-        method="POST">
+          <form class="form-default" asp-action="Create" asp-controller="TaiKhoans"  enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="login-form">
-            <!-- logo-login -->
-            <div class="logo-login">
-                <a href="index.html"><img src="~/assets/img/logo/loder.png" alt=""></a>
-            </div>
-            <h2>Registration Here</h2>
-
-            <div class="form-input">
+            <div class="login-form">
+                <!-- logo-login -->
+                <div class="logo-login">
+                    <a href="index.html"><img src="~/assets/img/logo/loder.png" alt=""></a>
+                </div>
+                <h2>Registration Here</h2>
+                <div class="form-input">
+                    <label for="Ten">Full name</label>
+                    <input asp-for="Ten" type="text" name="Ten" placeholder="Full name">
+                    <span asp-validation-for="Ten" class="text-danger"></span>
+                </div>
+                <div class="form-input">
+                    <label asp-for="Password" >Password</label>
+                    <input asp-for="Password" type="password" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-input">
+                    <label asp-for="HinhAnh" >Hình Ảnh</label>
+                    <input type="file" name="ful" asp-for="HinhAnh" placeholder="Hình Ảnh" />
+                    <span asp-validation-for="HinhAnh" class="text-danger"></span>
+                </div>
+                @*<div class="form-input">
                 <label for="Ten">Full name</label>
                 <input asp-for="Ten" type="text" name="Ten" placeholder="Full name">
                 <span asp-validation-for="Ten" class="text-danger"></span>
             </div>
-            
+
             <div class="form-input">
                 <label for="name">Password</label>
                 <input asp-for="Password" type="password" name="password" placeholder="Password">
@@ -30,13 +44,13 @@
                 <label for="name">Hình Ảnh</label>
                 <input type="file" name="ful" asp-for="HinhAnh" placeholder="Hình Ảnh" />
                 <span asp-validation-for="HinhAnh" class="text-danger"></span>
+            </div>*@
+                <div class="form-input pt-30">
+                    <input type="submit" name="submit" value="Registration">
+                </div>
+                <!-- Forget Password -->
+                <a asp-controller="Login" asp-action="Index" class="registration">login</a>
             </div>
-            <div class="form-input pt-30">
-                <input type="submit" name="submit" value="Registration">
-            </div>
-            <!-- Forget Password -->
-            <a asp-controller="Login" asp-action="Index" class="registration">login</a>
-        </div>
-    </form>
+        </form>
     <!-- /end login form -->
 </main>

@@ -58,6 +58,7 @@ namespace DoAnASP.Areas.User.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Create([Bind("IDTK,Ten,Password,HinhAnh,Quyen,TrangThai")] TaiKhoan taiKhoan, IFormFile ful)
         {
             if (ModelState.IsValid)
@@ -72,16 +73,15 @@ namespace DoAnASP.Areas.User.Controllers
                     await ful.CopyToAsync(stream);
                 }
                 taiKhoan.HinhAnh = taiKhoan.IDTK + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
-              
-               
-                _context.Add(taiKhoan);
+                _context.Update(taiKhoan);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Login");
             }
-
             return View(taiKhoan);
         }
 
+
+       
         // GET: User/TaiKhoans/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

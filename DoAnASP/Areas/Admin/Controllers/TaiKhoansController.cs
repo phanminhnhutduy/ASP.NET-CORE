@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using EmptyProject_Test.Areas.Admin.Data;
 
+
 namespace DoAnASP.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -74,7 +75,7 @@ namespace DoAnASP.Areas.Admin.Controllers
                 taiKhoan.HinhAnh = taiKhoan.IDTK + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
                 _context.Update(taiKhoan);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Login");
             }
             return View(taiKhoan);
         }

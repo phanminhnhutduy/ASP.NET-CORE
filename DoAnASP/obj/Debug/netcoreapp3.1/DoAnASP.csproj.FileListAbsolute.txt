@@ -1395,3 +1395,4 @@ C:\Users\MacBook\Desktop\ASP.NET-CORE\DoAnASP\obj\Debug\netcoreapp3.1\Razor\Area
 C:\Users\MacBook\Desktop\ASP.NET-CORE\DoAnASP\obj\Debug\netcoreapp3.1\Razor\Areas\User\Views\Home\timkim.cshtml.g.cs
 C:\Users\MacBook\Desktop\ASP.NET-CORE\DoAnASP\obj\Debug\netcoreapp3.1\Razor\Areas\User\Views\Blogs\Index1.cshtml.g.cs
 C:\Users\MacBook\Desktop\ASP.NET-CORE\DoAnASP\obj\Debug\netcoreapp3.1\Razor\Areas\User\Views\CauHois\Index1.cshtml.g.cs
+C:\Users\MacBook\Desktop\ASP.NET-CORE\DoAnASP\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_Layoutlogin.cshtml.g.cs
